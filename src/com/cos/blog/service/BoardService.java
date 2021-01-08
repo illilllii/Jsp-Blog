@@ -15,11 +15,12 @@ public class BoardService {
 	public int 글쓰기(SaveReqDto dto) {
 		return boardDao.save(dto);
 	}
-	public List<Board> 글목록보기(){
-		return boardDao.findAll();
+	public List<Board> 글목록보기(int page){
+		return boardDao.findAll(page);
 	}
 	
-	
-	
+	public int 글개수() {
+		return boardDao.count();
+	}
 
 }

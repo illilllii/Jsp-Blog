@@ -31,15 +31,15 @@ public class BoardDao {
 		return -1;
 	}
 
-	public List<Board> findAll() {
+	public List<Board> findAll(int page) {
 		Connection conn = DB.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT id, userId, title, content, readCount, createDate FROM board ORDER BY id DESC";
+		String sql = "SELECT id, userId, title, content, readCount, createDate FROM board ORDER BY id DESC LIMIT ?,4";
 		List<Board> boards = new ArrayList<Board>();
-
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, page*4); // 0->0, 1->4, 2->8
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -54,7 +54,6 @@ public class BoardDao {
 
 				boards.add(board);
 			}
-
 			return boards;
 
 
@@ -67,6 +66,26 @@ public class BoardDao {
 		return null;
 	}
 
+	public int count() {
+		String sql = "SELECT count(*) FROM board";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt(1); // index count(*)->1, count(*), id이면 id->2
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt, rs);
+		}
+		return -1;
+	}
 //	public int findByUsername(String username) {
 //	String sql = "SELECT * FROM user WHERE username = ?";
 //	Connection conn = DB.getConnection();
