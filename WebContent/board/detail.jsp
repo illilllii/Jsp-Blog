@@ -7,6 +7,7 @@
 <!-- 필터에 .jsp로 접근하는 모든 접근을 막아버리면 됨. -->
 
 <div class="container">
+	
 	<br /> <br />
 	<h6 class="m-2">
 		작성자 : <i>${dto.username}</i> 조회수 : <i>${dto.readCount}</i>
@@ -19,7 +20,7 @@
 	<div class="form-group">
 		<div class="m-2">${dto.content}</div>
 	</div>
-
+	
 	<hr />
 
 	<!-- 댓글 박스 -->
@@ -66,7 +67,6 @@
 
 
 </div>
-
 
 </body>
 </html>
