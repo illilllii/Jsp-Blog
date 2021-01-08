@@ -94,7 +94,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StringBuffer sb = new StringBuffer();
-		sb.append("select b.id, b.title, b.content, b.readCount, u.username ");
+		sb.append("select b.id, b.title, b.content, b.readCount, u.id, u.username ");
 		sb.append("from board b inner join user u ");
 		sb.append("on b.userid = u.id ");
 		sb.append("where b.id = ?");
@@ -111,6 +111,7 @@ public class BoardDao {
 				dto.setContent(rs.getString("b.content"));
 				dto.setReadCount(rs.getInt("b.readCount"));
 				dto.setUsername(rs.getString("u.username"));
+				dto.setUserId(rs.getInt("u.id"));
 				
 				return dto;
 			}
@@ -146,5 +147,23 @@ public class BoardDao {
 		return -1;
 	}
 
+	public int deleteById(int id) {
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM board WHERE id = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result = pstmt.executeUpdate();
+			return result;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt);
+		}
+		return -1;
+	}
 
 }

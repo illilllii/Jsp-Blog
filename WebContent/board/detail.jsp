@@ -7,7 +7,14 @@
 <!-- 필터에 .jsp로 접근하는 모든 접근을 막아버리면 됨. -->
 
 <div class="container">
-	
+
+	<!-- POST, GET, DELETE, PUT => POST, GET -->
+
+
+	<c:if test="${dto.userId == sessionScope.principal.id}">
+		<button class="btn btn-danger" onclick="deleteById(${dto.id})">삭제</button>
+	</c:if>
+
 	<br /> <br />
 	<h6 class="m-2">
 		작성자 : <i>${dto.username}</i> 조회수 : <i>${dto.readCount}</i>
@@ -20,7 +27,7 @@
 	<div class="form-group">
 		<div class="m-2">${dto.content}</div>
 	</div>
-	
+
 	<hr />
 
 	<!-- 댓글 박스 -->
@@ -68,6 +75,29 @@
 
 </div>
 
+<script>
+	function deleteById(boardId) {
+		// ajax로 delete 요청 (Method: POST)
+		// 요청과 응답을 json
+		var data = {
+			boardId: boardId
+		}
+		
+		$.ajax({
+			type:"POST",
+			url:"board?cmd=delete",
+			data:JSON.stringify(data),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json"
+		}).done(function(result) {
+			if(result.status =="ok") {
+				location.href="index.jsp";
+			} else {
+				alert("삭제에 실패하였습니다.");
+			}
+		});
+	}
+</script>
 </body>
 </html>
 

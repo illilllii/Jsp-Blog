@@ -34,5 +34,9 @@ public class BoardService {
 		}
 		
 	}
+	
+	public int 글삭제(int id) {
+		return boardDao.deleteById(id);
+	}
 
 }

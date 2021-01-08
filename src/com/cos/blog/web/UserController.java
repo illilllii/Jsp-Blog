@@ -99,6 +99,9 @@ public class UserController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect("index.jsp");
+		} else if(cmd.equals("jusoPopup")) {
+			RequestDispatcher dis = request.getRequestDispatcher("user/jusoPopup.jsp");
+			dis.forward(request, response);
 		}
 	}
 

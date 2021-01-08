@@ -9,6 +9,7 @@ public class DetailRespDto {
 	private String content;
 	private int readCount;
 	private String username;
+	private int userId;
 	
 	public String getTitle() {
 		return title.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
