@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cos.blog.domain.board.Board;
 import com.cos.blog.domain.board.BoardDao;
+import com.cos.blog.domain.board.dto.DetailRespDto;
 import com.cos.blog.domain.board.dto.SaveReqDto;
 
 public class BoardService {
@@ -21,6 +22,11 @@ public class BoardService {
 	
 	public int 글개수() {
 		return boardDao.count();
+	}
+	
+	public DetailRespDto 글상세보기(int id) {
+		// 조회수 업데이트 치기
+		return boardDao.findById(id);
 	}
 
 }
