@@ -31,6 +31,12 @@
 </div>
 <script>
 	var isChecking = false;
+
+	$("#username").change(function(){
+	    isChecking = false;
+	});
+
+
 	function valid() {
 		if(isChecking == false) {
 			alert("아이디 중복체크를 해주세요.");
