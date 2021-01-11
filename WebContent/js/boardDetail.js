@@ -10,6 +10,19 @@ function addReply(data) {
 	$("#reply__list").prepend(replyItem);
 }
 
+function deleteReply(id) {
+	$.ajax({
+		type: "post",
+		url: "/blog/reply?cmd=delete&id="+id,
+		dataType: "json"
+	}).done(function(result) {
+		if(result.statusCode == 1) {
+			console.log(result);
+			$("#reply-"+id).remove();
+		}
+	});
+}
+
 function replySave(userId, boardId) {
 	//console.log($("#content").text());
 	//console.log($("#content").val());
