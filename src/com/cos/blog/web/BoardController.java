@@ -1,6 +1,5 @@
 package com.cos.blog.web;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import com.cos.blog.domain.board.Board;
 import com.cos.blog.domain.board.dto.CommonRespDto;
-import com.cos.blog.domain.board.dto.DeleteReqDto;
-import com.cos.blog.domain.board.dto.DeleteRespDto;
 import com.cos.blog.domain.board.dto.DetailRespDto;
 import com.cos.blog.domain.board.dto.SaveReqDto;
 import com.cos.blog.domain.board.dto.UpdateReqDto;
@@ -46,6 +43,7 @@ public class BoardController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("cmd");
 		BoardService boardService = new BoardService();
+		
 		// http://localhost:8000/blog/user?cmd=loginForm
 		HttpSession session = request.getSession();
 		if(cmd.equals("saveForm")) {
@@ -94,6 +92,8 @@ public class BoardController extends HttpServlet {
 			int id = Integer.parseInt(request.getParameter("id"));
 			
 			DetailRespDto dto = boardService.글상세보기(id); // board테이블+user테이블 = 조인된 데이터!!
+			
+			
 			if(dto != null) {
 				request.setAttribute("dto", dto);
 				RequestDispatcher dis = request.getRequestDispatcher("board/detail.jsp");

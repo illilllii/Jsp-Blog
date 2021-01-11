@@ -41,16 +41,18 @@
 						<b>Comment</b>
 					</div>
 					<div class="panel-body">
-						<form action="/blog/reply?cmd=save" method="post">
-							<input type="hidden" name="userId" value="${sessionScope.principal.id}" />
-							<input type="hidden" name="boardId" value="${dto.id}" />
-							<textarea id="reply__write__form" name="content" class="form-control"
-								placeholder="write a comment..." rows="2"></textarea>
-							<br>
-							<button onclick="#" class="btn btn-primary pull-right">댓글쓰기</button>
-						</form>
 
-						
+						<input type="hidden" name="userId"
+							value="${sessionScope.principal.id}" />
+						<input type="hidden"
+							name="boardId" value="${dto.id}" />
+						<textarea  id="content" id="reply__write__form"
+							class="form-control" placeholder="write a comment..." rows="2"></textarea>
+						<br>
+						<button onclick="replySave(${sessionScope.principal.id}, ${dto.id})" class="btn btn-primary pull-right">댓글쓰기</button>
+
+
+
 						<div class="clearfix"></div>
 						<hr />
 
@@ -82,24 +84,7 @@
 
 
 </div>
-
-<script>
-	function deleteById(boardId) {
-		// ajax로 delete 요청 (Method: POST)
-		// 요청과 응답을 json
-		$.ajax({
-			type:"POST",
-			url:"/blog/board?cmd=delete&id="+boardId,
-			dataType: "json"
-		}).done(function(result) {
-			if(result.statusCode == 1) {
-				location.href="index.jsp";
-			} else {
-				alert("삭제에 실패하였습니다.");
-			}
-		});
-	}
-</script>
+<script src="/blog/js/boardDetail.js"></script>
 </body>
 </html>
 
