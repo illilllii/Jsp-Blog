@@ -42,14 +42,12 @@
 					</div>
 					<div class="panel-body">
 
-						<input type="hidden" name="userId"
-							value="${sessionScope.principal.id}" />
-						<input type="hidden"
-							name="boardId" value="${dto.id}" />
-						<textarea  id="content" id="reply__write__form"
+						<textarea id="content" id="reply__write__form"
 							class="form-control" placeholder="write a comment..." rows="2"></textarea>
 						<br>
-						<button onclick="replySave(${sessionScope.principal.id}, ${dto.id})" class="btn btn-primary pull-right">댓글쓰기</button>
+						<button
+							onclick="replySave(${sessionScope.principal.id}, ${dto.id})"
+							class="btn btn-primary pull-right">댓글쓰기</button>
 
 
 
@@ -59,18 +57,22 @@
 						<!-- 댓글 리스트 시작-->
 						<ul id="reply__list" class="media-list">
 
-							<!-- 댓글 아이템 -->
-							<li id="reply-1" class="media">
-								<div class="media-body">
-									<strong class="text-primary">홍길동</strong>
-									<p>댓글입니다.</p>
-								</div>
-								<div class="m-2">
 
-									<i onclick="#" class="material-icons">delete</i>
+							<c:forEach var="reply" items="${replys}">
+								<!-- 댓글 아이템 -->
+								<li id="reply-${reply.id}" class="media">
+									<div class="media-body">
+										<strong class="text-primary">${reply.username}</strong>
+										<p>${reply.content}</p>
+									</div>
+									<div class="m-2">
 
-								</div>
-							</li>
+										<i onclick="#" class="material-icons">delete</i>
+
+									</div>
+								</li>
+							</c:forEach>
+
 
 						</ul>
 						<!-- 댓글 리스트 끝-->
