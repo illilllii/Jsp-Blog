@@ -25,6 +25,10 @@ public class BoardService {
 		return boardDao.count();
 	}
 	
+	public int 글개수(String keyword) {
+		return boardDao.count(keyword);
+	}
+	
 	// 하나의 서비스안에 여러가지 DB관련 로직이 섞여있음.
 	public DetailRespDto 글상세보기(int id) {
 		int result = boardDao.updateByReadCount(id);
@@ -43,5 +47,11 @@ public class BoardService {
 	public int 글수정(UpdateReqDto dto) {
 		return boardDao.update(dto);
 	}
+	
+	public List<Board> 글검색(String keyword, int page) {
+		return boardDao.findByKeyword(keyword, page);
+	}
+	
+	
 
 }
