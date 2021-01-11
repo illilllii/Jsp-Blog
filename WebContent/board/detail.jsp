@@ -12,7 +12,8 @@
 
 
 	<c:if test="${dto.userId == sessionScope.principal.id}">
-		<a href="/blog/board?cmd=updateForm&id=${dto.id}" class="btn btn-warning">수정</a>
+		<a href="/blog/board?cmd=updateForm&id=${dto.id}"
+			class="btn btn-warning">수정</a>
 		<button class="btn btn-danger" onclick="deleteById(${dto.id})">삭제</button>
 	</c:if>
 
@@ -40,10 +41,16 @@
 						<b>Comment</b>
 					</div>
 					<div class="panel-body">
-						<textarea id="reply__write__form" class="form-control"
-							placeholder="write a comment..." rows="2"></textarea>
-						<br>
-						<button onclick="#" class="btn btn-primary pull-right">댓글쓰기</button>
+						<form action="/blog/reply?cmd=save" method="post">
+							<input type="hidden" name="userId" value="${sessionScope.principal.id}" />
+							<input type="hidden" name="boardId" value="${dto.id}" />
+							<textarea id="reply__write__form" name="content" class="form-control"
+								placeholder="write a comment..." rows="2"></textarea>
+							<br>
+							<button onclick="#" class="btn btn-primary pull-right">댓글쓰기</button>
+						</form>
+
+						
 						<div class="clearfix"></div>
 						<hr />
 
@@ -80,18 +87,12 @@
 	function deleteById(boardId) {
 		// ajax로 delete 요청 (Method: POST)
 		// 요청과 응답을 json
-		var data = {
-			boardId: boardId
-		}
-		
 		$.ajax({
 			type:"POST",
-			url:"board?cmd=delete",
-			data:JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
+			url:"/blog/board?cmd=delete&id="+boardId,
 			dataType: "json"
 		}).done(function(result) {
-			if(result.status =="ok") {
+			if(result.statusCode == 1) {
 				location.href="index.jsp";
 			} else {
 				alert("삭제에 실패하였습니다.");
